@@ -1,0 +1,31 @@
+{
+  "name": "3DF Development Environment Manager",
+  "frontend:build": "",
+  "frontend:install": "",
+  "frontend:dev": "",
+  "frontend:dev:watcher": "",
+  "wailsjsdir": "./frontend",
+  "version": "2",
+  "Path": "",
+  "BuildDir": "",
+  "outputfilename": "dem",
+  "OutputType": "",
+  "Platform": "",
+  "runNonNativeBuildHooks": false,
+  "postBuildHooks": null,
+  "Author": {
+    "name": "hkdb",
+    "email": "38838639+hkdb@users.noreply.github.com"
+  },
+  "Info": {
+    "companyName": "3DF Limited",
+    "productName": "3DF Development Environment Manager",
+    "productVersion": "0.01",
+    "copyright": "MIT License",
+    "comments": "Built using Wails (https://wails.app)"
+  },
+  "debounceMS": 100,
+  "devserverurl": "http://localhost:34115",
+  "appargs": "",
+  "nsisType": ""
+}

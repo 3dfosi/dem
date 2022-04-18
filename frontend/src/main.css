@@ -1,0 +1,709 @@
+@import url("https://fonts.googleapis.com/css?family=Open+Sans:400,700");
+
+/* RESET RULES
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+:root {
+  --white: #afafaf;
+  --red: #e31b23;
+  --bodyColor: #292a2b;
+  --borderFormEls: hsl(0, 0%, 10%);
+  --bgFormEls: hsl(0, 0%, 14%);
+  --bgFormElsFocus: hsl(0, 7%, 20%);
+}
+
+html {
+   max-height: 100vh;
+}
+body {
+   font-family: "Open Sans";
+   background: #292a2b;
+   color: #ecf0f1;
+   line-height: 1.618em;
+   max-height: 100vh;
+   opacity: 0;
+   transition: opacity 2s;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  outline: none;
+  box-sizing: border-box;
+}
+
+a {
+  color: inherit;
+}
+
+input,
+select,
+textarea,
+button {
+  font-family: inherit;
+  font-size: 100%;
+}
+
+button,
+label {
+  cursor: pointer;
+}
+
+select {
+  appearance: none;
+}
+
+/* Remove native arrow on IE */
+select::-ms-expand {
+  display: none;
+}
+
+/*Remove dotted outline from selected option on Firefox*/
+/*https://stackoverflow.com/questions/3773430/remove-outline-from-select-box-in-ff/18853002#18853002*/
+/*We use !important to override the color set for the select on line 99*/
+select:-moz-focusring {
+  color: transparent !important;
+  text-shadow: 0 0 0 var(--white);
+}
+
+textarea {
+  resize: none;
+}
+
+ul {
+  list-style: none;
+}
+
+.logo img {
+   width: 20px;
+   height: 20px;
+   padding: 0px;
+   margin: 0px;
+   vertical-align: middle;
+}
+
+.splash {
+   text-align: center;
+   vertical-align: middle;
+}
+
+.splash img {
+   width: 300px;
+   height: 300px;
+}
+
+.wrapper {
+  max-width: 800px;
+  max-height: 100vh;
+  width: 100vw;
+  height: 80vh;
+  margin: 0 auto;
+}
+
+.tabs {
+  position: relative;
+  margin: 3rem 0;
+  background: transparent; /* #292a2b; */
+  height: 14.75rem;
+  border-top-right-radius: 0px;
+  border-top-left-radius: 0px;
+}
+.tabs::before,
+.tabs::after {
+  content: "";
+  display: table;
+}
+.tabs::after {
+  clear: both;
+}
+
+.hidden {
+   display: none:
+}
+
+.tab {
+  float: left;
+}
+.tab-switch {
+  display: none;
+}
+.tab-label {
+  position: relative;
+  display: block;
+  line-height: 2.75em;
+  height: 3em;
+  padding: 0 2.618em;
+  margin-right: 2px;
+  background: #808080;
+  border-right: 0.125rem solid transparent;
+  color: #fff;
+  cursor: pointer;
+  top: 0;
+  transition: all 0.25s;
+  border-top-right-radius: 8px;
+  border-top-left-radius: 8px;
+}
+
+.hidden {
+   display: none;
+}
+
+.tab-label:hover {
+  top: -0.25rem;
+  transition: top 0.25s;
+}
+.tab-content {
+  height: 60vw;
+  position: absolute;
+  z-index: 1;
+  top: 2.75em;
+  left: 0;
+  width: 800px;
+  padding: 1.618rem;
+  padding-top: 60px;
+  background: #4d4d4d;
+  color: #f5f5f5;
+  /* border-bottom: 0.25rem solid #cccccc; */
+  border-radius: 10px;
+  border-top-right-radius: 8px;
+  border-top-left-radius: 0px;
+  opacity: 0;
+  transition: all 0.35s;
+}
+.tab-switch:checked + .tab-label {
+  background: #4d4d4d;
+  color: #f5f5f5;
+  border-bottom: 0;
+  /* border-right: 0.125rem solid #fff; */
+  transition: all 0.35s;
+  z-index: 1;
+  top: -0.0625rem;
+}
+.tab-switch:checked + label + .tab-content {
+  z-index: 2;
+  opacity: 1;
+  transition: all 0.35s;
+}
+
+.nav-btn {
+   border: none;
+   padding: 5px;
+   border-radius: 5px;
+   background-color: #cccccc;
+}
+
+.nav-btn:hover {
+   background-color: white;
+}
+
+.loading:after {
+  overflow: hidden;
+  display: inline-block;
+  vertical-align: bottom;
+  -webkit-animation: ellipsis steps(4,end) 900ms infinite;      
+  animation: ellipsis steps(4,end) 900ms infinite;
+  content: "\2026"; /* ascii code for the ellipsis character */
+  width: 0px;
+}
+
+@keyframes ellipsis {
+  to {
+    width: 20px;    
+  }
+}
+
+@-webkit-keyframes ellipsis {
+  to {
+    width: 20px;    
+  }
+}
+
+/* CATEGORIES
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+
+.sub-t {
+   margin: 0px;
+   padding: 0px;
+   color: black;
+}
+
+.top-90 {
+   height: 90%;
+}
+
+.bottom-10 {
+   height: 10%;
+}
+
+/* LOADING SPINNER
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+.spin-container {
+   width: 100%;
+   height: 100%;
+   padding-top: 10%;
+   text-align: center;
+}
+
+.spin {
+        display: inline-block;
+        width: 50px;
+        height: 50px;
+        border: 3px solid rgba(255, 255, 255, .3);
+        border-radius: 50%;
+        border-top-color: #fff;
+        animation: spin 1s ease-in-out infinite;
+        -webkit-animation: spin 1s ease-in-out infinite;
+      }
+      @keyframes spin {
+        to {
+          -webkit-transform: rotate(360deg);
+        }
+      }
+      @-webkit-keyframes spin {
+        to {
+          -webkit-transform: rotate(360deg);
+        }
+      }
+
+/* TABLE ELEMENTS
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+
+.add-btn {
+   background-color: #808080;;
+   margin-left: 5px;
+   margin-right: 5px;
+   margin-bottom: 0px;
+   width: 98%;
+   height: 30px;
+   font-size: 20px;
+   border: 0px;
+   border-radius: 5px;
+   color: white;
+   font-weight: 900;
+}
+
+.add-btn:hover {
+   background-color: #cccccc;
+   color: #000000;
+}
+
+.responsive-table {
+   width: 100%;
+   padding: 0px;
+   margin: 0px;
+}
+
+table {
+   width: 100%;
+   margin-bottom: 10px;
+}
+
+thead {
+   background-color: #292a2b;
+   padding: 0px;
+   height: 40px;
+}
+
+th {
+   margin: 0px;
+   margin-bottom: 10px;
+   padding-left: 10px;
+   text-align: left;
+   border-radius: 5px;
+}
+
+.t-nav {
+   border: none;
+   background-color: transparent;
+   vertical-align: bottom;
+}
+
+.t-nav img {
+   max-width: 14px;
+}
+
+tbody {
+   padding-top: 20px;
+}
+
+tr {
+   padding: 0px;
+   text-align: left;
+}
+
+td {
+   padding-left: 10px;
+}
+
+.fixed-width {
+   overflow: hidden;
+}
+
+.t-center {
+   padding: 0px;
+   text-align: center;
+}
+
+.table-btn {
+   margin-top: 5px;
+   background-color: #cccccc;
+   min-width: 50px;
+   padding-top: 1px;
+   padding-bottom: 1px;
+   border: 0px;
+   border-radius: 5px;
+}
+
+.table-btn:hover {
+   background-color: #f5f5f5;
+}
+
+.access-btn {
+   background-color: #4d4d4d;
+   min-width: 24px;
+   height: 24px;
+   padding-top: 2px;
+   margin: 0px;
+   border: 0px;
+   border-radius: 5px;
+   vertical-align: middle;
+   text-align: center;
+}
+
+.access-btn img {
+   padding: 0px;
+   margin: 0px;
+}
+
+.access-btn:hover {
+   background-color: #38e90e;
+}
+
+.access-icon {
+   width: 20px;
+   height: 20px;
+}
+
+.logs-btn {
+   background-color: #4d4d4d;
+   min-width: 24px;
+   height: 24px;
+   padding-top: 2px;
+   margin: 0px;
+   border: 0px;
+   border-radius: 5px;
+   vertical-align: middle;
+   text-align: center;
+}
+
+.logs-btn img {
+   padding: 0px;
+   margin: 0px;
+}
+
+.logs-btn:hover {
+   background-color: #292a2b;
+}
+
+.logs-icon {
+   max-height: 16px;
+}
+
+.remove-btn {
+   background-color: #4d4d4d;
+   min-width: 24px;
+   height: 24px;
+   padding-top: 2px;
+   margin: 0px;
+   border: 0px;
+   border-radius: 25px;
+   vertical-align: middle;
+   text-align: center;
+}
+
+.remove-btn img {
+   padding: 0px;
+   margin: 0px;
+}
+
+.remove-btn:hover {
+   background-color: #cccccc;
+}
+
+.remove-icon {
+   width: 20px;
+   height: 20px;
+}
+
+.table-footer {
+   padding: 10px;
+}
+
+/* FORM ELEMENTS
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+.bottom-25 {
+   margin-bottom: 25px;
+}
+
+.my-form h1 {
+  margin-bottom: 1.5rem;
+}
+
+.my-form li,
+.my-form .grid > *:not(:last-child) {
+  margin-bottom: 1.5rem;
+}
+
+.my-form select,
+.my-form input,
+.my-form textarea,
+.my-form button {
+  width: 100%;
+  line-height: 1.5;
+  padding: 15px 10px;
+  border: 1px solid var(--borderFormEls);
+  color: var(--white);
+  background-color: #1f1f1f;
+  /* background: var(--bgFormEls); */
+  transition: background-color 0.3s cubic-bezier(0.57, 0.21, 0.69, 1.25),
+    transform 0.3s cubic-bezier(0.57, 0.21, 0.69, 1.25);
+}
+
+.my-form .field-medium {
+   width: 60%;
+}
+
+.my-form .field-number {
+   width: 30%;
+}
+.my-form textarea {
+  height: 60px;
+}
+
+.my-form ::placeholder {
+  color: inherit;
+  /*Fix opacity issue on Firefox*/
+  opacity: 1;
+}
+
+.my-form select:focus,
+.my-form input:focus,
+.my-form textarea:focus,
+.my-form button:enabled:hover,
+.my-form button:focus,
+.my-form input[type="checkbox"]:focus + label {
+  background: var(--bgFormElsFocus);
+}
+
+.my-form select:focus,
+.my-form input:focus,
+.my-form textarea:focus {
+  transform: scale(1.02);
+}
+
+.my-form *:required,
+.my-form select {
+  background-repeat: no-repeat;
+  background-position: center right 12px;
+  background-size: 15px 15px;
+}
+
+.my-form *:required {
+  background-image: url(./assets/images/asterisk.svg);
+}
+
+.my-form select {
+  background-image: url(./assets/images/down.svg);
+}
+
+.my-form *:disabled {
+  cursor: default;
+  filter: blur(2px);
+}
+
+.small {
+   max-width: 14px;
+}
+
+
+/* FORM BTNS
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+.my-form .required-msg {
+  display: none;
+  background: url(./assets/images/asterisk.svg)
+    no-repeat center left / 15px 15px;
+  padding-left: 20px;
+}
+
+.my-form .btn-grid {
+  position: relative;
+  overflow: hidden;
+  transition: filter 0.2s;
+}
+
+.my-form button {
+  font-weight: bold;
+}
+
+.my-form button > * {
+  display: inline-block;
+  width: 100%;
+  transition: transform 0.4s ease-in-out;
+}
+
+.my-form button .back {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-110%, -50%);
+}
+
+.my-form button:enabled:hover .back,
+.my-form button:focus .back {
+  transform: translate(-50%, -50%);
+}
+
+.my-form button:enabled:hover .front,
+.my-form button:focus .front {
+  transform: translateX(110%);
+}
+
+
+/* CUSTOM CHECKBOX
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+.my-form input[type="checkbox"] {
+  position: absolute;
+  left: -9999px;
+}
+
+.my-form input[type="checkbox"] + label {
+  position: relative;
+  display: inline-block;
+  padding-left: 2rem;
+  transition: background 0.3s cubic-bezier(0.57, 0.21, 0.69, 1.25);
+}
+
+.my-form input[type="checkbox"] + label::before,
+.my-form input[type="checkbox"] + label::after {
+  content: '';
+  position: absolute;
+}
+
+.my-form input[type="checkbox"] + label::before {
+  left: 0;
+  top: 6px;
+  width: 18px;
+  height: 18px;
+  border: 2px solid var(--white);
+}
+
+.my-form input[type="checkbox"]:checked + label::before {
+  background: var(--red);
+}
+
+.my-form input[type="checkbox"]:checked + label::after {
+  left: 7px;
+  top: 7px;
+  width: 6px;
+  height: 14px;
+  border-bottom: 2px solid var(--white);
+  border-right: 2px solid var(--white);
+  transform: rotate(45deg);
+}
+
+
+/* FOOTER
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+footer {
+  font-size: 1rem;
+  text-align: right;
+  backface-visibility: hidden;
+}
+
+footer a {
+  text-decoration: none;
+}
+
+footer span {
+  color: var(--red);
+}
+
+/* popup
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+.popup {
+    display: none;
+    position: fixed;
+    z-index: 999;
+    background-color: rgba(43, 41, 41, 0.48);
+    padding-top: 100px;
+    overflow: auto;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+}
+.popup-content {
+    background-color: #ffffff;
+    width: 80%;
+    padding: 16px;
+    margin: auto;
+    margin-top: 100px;
+    /* border: 1px solid #888; */
+    border: none;
+    opacity: 0.8;
+}
+.popup-close {
+    color: #ffffff;
+    background-color: #e31b23;
+    margin-top: -12px;
+    font-weight: bold;
+    padding: 4px;
+    padding-top: 0;
+    padding-bottom: 0;
+    float: right;
+    font-size: 1.5em;
+}
+.popup-close:hover,
+.popup-close:focus {
+    cursor: pointer;
+    color: #ccc;
+    background-color: #ec4949;
+}
+
+/* MQ
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+@media screen and (min-width: 600px) {
+  .my-form .grid {
+    display: grid;
+    grid-gap: 1.5rem;
+  }
+
+  .my-form .grid-2 {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .my-form .grid-3 {
+    grid-template-columns: auto auto auto;
+    align-items: center;
+  }
+
+  .my-form .grid > *:not(:last-child) {
+    margin-bottom: 0;
+  }
+
+  .my-form .required-msg {
+    display: block;
+  }
+}
+
+@media screen and (min-width: 541px) {
+  .my-form input[type="checkbox"] + label::before {
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  .my-form input[type="checkbox"]:checked + label::after {
+    top: 3px;
+  }
+}
+

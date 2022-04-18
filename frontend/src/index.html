@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <meta charset="utf-8" />
+      <title>3DF DevEnv Launcher</title>
+      <meta content="width=device-width,initial-scale=1" name="viewport" />
+      <link href="main.css" rel="stylesheet" type="text/css" />
+   </head>
+   <body onload="document.body.style.opacity='1'">
+      <div class="wrapper">
+        <div class="tabs">
+          <div class="tab">
+            <input type="radio" name="css-tabs" id="tab-1" checked class="tab-switch">
+            <label for="tab-1" class="tab-label logo"><img src="./assets/images/3DF.png"></label>
+            <div class="tab-content">
+               <h2>3DF Development Environment Manager</h2>
+               <p class="sub-t">Dockerize your local dev environments</p>
+               <p>by: <a href="https://osi.3df.io">3DF OSI</a></p>
+               <div class="splash"><img src="./assets/images/dem.png"></div>
+               <div class="splash">v0.01</div>
+               <!-- <div class="splash"><button onclick="test()">Test</button></div> -->
+            </div>
+          </div>
+          <div class="tab">
+             <input type="radio" name="css-tabs" id="tab-2" onclick="loadImages()" class="tab-switch">
+             <label for="tab-2" class="tab-label">Images</label>
+             <div class="tab-content">
+               
+               <div id="images-table" class="responsive-table">
+                  <div class="spin-container">
+                     <div class="spin"></div>
+                  </div>
+                  <!-- Image table goes here -->
+               </div>
+               <div class="table-footer">
+                  <img class="small" src="./assets/images/asterisk.svg"> Removing images from here doesn't really remove the image from docker.
+               </div>
+             </div>
+          </div>
+          <div class="tab">
+             <input type="radio" name="css-tabs" id="tab-2.5" onclick="loadImages()" class="tab-switch">
+             <label for="tab-2.5" class="hidden tab-label">Edit</label>
+             <div class="tab-content">
+               
+               <form id="edit-img-form" onSubmit="return false;" class="my-form">
+                 <div class="container">
+                   <div class="spacer"></div>
+                   <ul>
+                     <li id="image-form">
+                        <!-- Form goes here -->
+                     </li>    
+                     <li>
+                       <div class="grid grid-3">
+                         <div class="required-msg">REQUIRED FIELDS</div>
+                         <span id="img-edit-save">
+                              <!-- Save button go here -->
+                         </span>
+                         <button class="btn-grid" onclick="checkTab('tab-2')" type="reset">
+                           <span class="back">
+                             <img src="./assets/images/cancel-scaled.svg" alt="">
+                           </span>
+                           <span class="front">CANCEL</span>
+                         </button>`
+                       </div>
+                     </li>    
+                   </ul>
+                 </div>
+               </form>
+
+             </div>
+          </div>
+          <div class="tab">
+            <input type="radio" name="css-tabs" id="tab-3" class="tab-switch">
+            <label for="tab-3" class="hidden tab-label">+</label>
+            <div class="tab-content">
+               <form id="add-img-form" onSubmit="return false;" class="my-form">
+                 <div class="container">
+                   <div class="spacer"></div>
+                   <ul>
+                     <li>
+                       <div class="grid grid-2">
+                         <input type="text" id="image-add-name" placeholder="image name" required>
+                         <input type="text" id="image-add-repo" placeholder="repo:tag" required>  
+                       </div>
+                     </li>    
+                     <li>
+                       <div class="grid grid-3">
+                         <div class="required-msg">REQUIRED FIELDS</div>
+                         <button class="btn-grid" 
+                            onclick="addImage(document.getElementById('image-add-name').value, document.getElementById('image-add-repo').value)" 
+                            type="submit"
+                         >
+                           <span class="back">
+                             <img src="./assets/images/save-scaled.svg" alt="">
+                           </span>
+                           <span class="front">SAVE</span>
+                         </button>
+                         <button class="btn-grid" onclick="checkTab('tab-2')" type="reset">
+                           <span class="back">
+                             <img src="./assets/images/cancel-scaled.svg" alt="">
+                           </span>
+                           <span class="front">CANCEL</span>
+                         </button> 
+                       </div>
+                     </li>    
+                   </ul>
+                 </div>
+               </form>
+            </div>
+          </div>
+          <div class="tab">
+            <input type="radio" name="css-tabs" id="tab-4" onclick="loadEnvs()" class="tab-switch">
+            <label for="tab-4" class="tab-label">Environments</label>
+            <div class="tab-content">
+               <div id="popup-area"></div>
+               <div id="environment-table" class="responsive-table">
+                  <div class="spin-container">
+                     <div class="spin"></div>
+                  </div>
+                  <!-- Environment tables goes here -->
+               </div>
+            </div>
+          </div>
+          <div class="tab">
+            <input type="radio" name="css-tabs" id="tab-4.5" class="tab-switch">
+            <label for="tab-4.5" class="hidden tab-label">Edit</label>
+            <div class="tab-content">
+               <form id="edit-env-form" onSubmit="saveAnimate(); return false;" class="my-form">
+                 <div class="container">
+                   <div class="spacer"></div>
+                   <ul>
+                     <li id="env-image-ddm">
+                        <!-- image drop down menu goes here -->
+                     </li>
+                     <li>
+                       <div id="env-edit-form-1" class="grid grid-3">
+                          <!-- first section of form goes here -->
+                       </div>
+                     </li>
+                     <li>
+                       <div id="env-edit-form-2" class="grid grid-2">
+                          <!-- second section of form goes here -->
+                       </div>
+                     </li>    
+                     <li>
+                       <div id="env-edit-form-3" class="grid">
+                          <!-- third section of form goes here -->
+                       </div>
+                     </li>    
+                     <li>
+                      <div class="bottom-25 grid grid-1">
+                         <div class="required-msg">REQUIRED FIELDS</div>
+                      </div>
+
+                       <div class="grid grid-3">
+                         <button class="btn-grid" onclick="changeEnv(
+                                 document.getElementById('env-edit-id').value,
+                                 document.getElementById('env-edit-image').value, 
+                                 document.getElementById('env-edit-name').value, 
+                                 document.getElementById('env-edit-hostname').value, 
+                                 document.getElementById('env-edit-port').value, 
+                                 document.getElementById('env-edit-local').value, 
+                                 document.getElementById('env-edit-path').value,
+                                 document.getElementById('env-edit-options').value
+                                 )" 
+                                 type="submit"
+                         >
+                           <span id="edit-env-save-1" class="back">
+                             <img src="./assets/images/save-scaled.svg" alt="">
+                           </span>
+                           <span id="edit-env-save-2" class="front"> SAVE </span>
+                         </button>
+                         <button class="btn-grid" type="reset">
+                           <span class="back">
+                             <img src="./assets/images/eraser-scaled.svg" alt="">
+                           </span>
+                           <span class="front">RESET</span>
+                         </button> 
+                         <button class="btn-grid" onclick="checkTab('tab-4')" type="reset">
+                           <span class="back">
+                             <img src="./assets/images/cancel-scaled.svg" alt="">
+                           </span>
+                           <span class="front">CANCEL</span>
+                         </button> 
+                       </div>
+                     </li>    
+                   </ul>
+                 </div>
+               </form>
+            </div>
+          </div>
+          <div class="tab">
+            <input type="radio" name="css-tabs" id="tab-5" class="tab-switch">
+            <label for="tab-5" class="hidden tab-label">+</label>
+            <div class="tab-content">
+               <form id="add-env-form" onSubmit="launchAnimate(); return false;" class="my-form">
+                 <div class="container">
+                   <div class="spacer"></div>
+                   <ul>
+                     <li id="image-ddm">
+                        <!-- image drop down menu goes here -->
+                     </li>
+                     <li>
+                       <div class="grid grid-3">
+                         <input type="text" id="env-name" placeholder="Container Name" required>  
+                         <input type="text" id="env-hostname" placeholder="Container Hostname" required>
+                         <input type="text" id="env-port" placeholder="Publish Port:Port">  
+                       </div>
+                     </li>
+                     <li>
+                       <div class="grid grid-2">
+                         <input type="text" id="env-local" placeholder="Local Code Repo" required>
+                         <input type="text" id="env-path" placeholder="Container Path (ie. /var/www/html)" required>  
+                       </div>
+                     </li>    
+                     <li>
+                       <div class="grid">
+                         <input type="text" id="env-options" placeholder="Other Options">
+                       </div>
+                     </li>    
+                     <li>
+                      <div class="bottom-25 grid grid-1">
+                         <div class="required-msg">REQUIRED FIELDS</div>
+                      </div>
+
+                       <div class="grid grid-3">
+                         <button class="btn-grid" onclick="addEnv(
+                                 document.getElementById('env-image').value, 
+                                 document.getElementById('env-name').value, 
+                                 document.getElementById('env-hostname').value, 
+                                 document.getElementById('env-port').value, 
+                                 document.getElementById('env-local').value, 
+                                 document.getElementById('env-path').value,
+                                 document.getElementById('env-options').value
+                                 )" 
+                                 type="submit"
+                         >
+                           <span id="launch-env-1" class="back">
+                             <img src="./assets/images/launch-scaled.svg" alt="">
+                           </span>
+                           <span id="launch-env-2" class="front"> LAUNCH </span>
+                         </button>
+                         <button class="btn-grid" type="reset">
+                           <span class="back">
+                             <img src="./assets/images/eraser-scaled.svg" alt="">
+                           </span>
+                           <span class="front">RESET</span>
+                         </button> 
+                         <button class="btn-grid" onclick="checkTab('tab-4')" type="reset">
+                           <span class="back">
+                             <img src="./assets/images/cancel-scaled.svg" alt="">
+                           </span>
+                           <span class="front">CANCEL</span>
+                         </button> 
+                       </div>
+                     </li>    
+                   </ul>
+                 </div>
+               </form>
+            </div>
+          </div>
+        </div>
+        <small>Made with <span>❤</span> by <a href="https://osi.3df.io" target="_blank">3DF OSI</a>
+        </small>
+      </div>
+      </footer>
+      <script src="/main.js"></script>
+   </body>
+</html>
